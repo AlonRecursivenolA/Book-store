@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { Login } from './shared/components/login/login';
+import { Register } from './shared/components/register/register';
+import { bootstrapApplication } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-root',

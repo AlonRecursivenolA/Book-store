@@ -1,0 +1,24 @@
+
+<div class="root">
+
+<div class="form-container">
+  <form  [formGroup]="form" (ngSubmit)="submitRegistration()">
+    <label class="form-label" for="name">User Name </label>
+    <input class="form-input" id='name' type="text" formControlName="name" required minlength="2">
+    @if(form.get('name')?.invalid && form.get('name')?.touched){
+      <div class="input-warning">User Name Should Be Atleast 2 chars</div>
+    }
+
+    <label class="form-label" for="password">Password </label>
+    <input class="form-input" id='password' type="password" formControlName="password" required minlength="6">
+    @if(form.get('password')?.errors?.['shortPassword'] && form.get('password')?.touched){
+      <div class="input-warning">Please insert 6 chars atleast</div>
+    }
+    @if (form.get('password')?.errors?.['addCapital'] && form.get('password')?.touched) {
+      <div class="input-warning">Please insert a capital letter</div>
+    }
+    <button class="login-button" [disabled]="form.invalid" >Register</button>
+    <a class="form-a" routerLink="/login">Already registed? Login</a>
+  </form>
+</div>
+</div>

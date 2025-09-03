@@ -1,0 +1,9 @@
+@mixin flex-display{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin books-background{
+  background: url(../../assets/imgs/book.jpg) no-repeat center center / cover;
+}

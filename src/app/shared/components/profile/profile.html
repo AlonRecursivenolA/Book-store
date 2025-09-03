@@ -1,0 +1,113 @@
+<div class="header">
+      <div class="navbar" (click)="openNavBar()">
+      <div class="lines" [ngClass]="{'simulate': true, 'simulated-top': simulated}"></div>
+      <div class="lines" [ngClass]="{'simulate':true, 'simulated-middle': simulated}"></div>
+      <div class="lines" [ngClass]="{'simulate': true, 'simulated-bottom': simulated}"></div>
+    </div>
+  <div class="header-details">
+    <div (click)="goToCart()">
+      
+              <svg class="cart" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#B197FC" d="M8 0C3.6 0 0 3.6 0 8s3.6 8 8 8l45.7 0C65.1 16 75 24.1 77.2 35.4l59.4 303.4c5.1 26.3 28.2 45.2 55 45.2L488 384c4.4 0 8-3.6 8-8s-3.6-8-8-8l-296.5 0c-19.1 0-35.6-13.5-39.3-32.3l-9.3-47.7 318.3 0c33.5 0 62.5-23.1 70.1-55.6L566.6 81.1C572.5 56 553.4 32 527.7 32L92.8 32C89 13.4 72.7 0 53.7 0L8 0zM96 48l431.7 0c15.5 0 26.9 14.4 23.4 29.5L515.8 228.7c-5.9 25.3-28.5 43.3-54.5 43.3L139.8 272 96 48zm80 416a32 32 0 1 1 64 0 32 32 0 1 1 -64 0zm80 0a48 48 0 1 0 -96 0 48 48 0 1 0 96 0zm176-32a32 32 0 1 1 0 64 32 32 0 1 1 0-64zm0 80a48 48 0 1 0 0-96 48 48 0 1 0 0 96z"/></svg>
+    </div>
+
+        <div class="user-details">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free v7.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#c35555" d="M224 248a120 120 0 1 0 0-240 120 120 0 1 0 0 240zm-29.7 56C95.8 304 16 383.8 16 482.3 16 498.7 29.3 512 45.7 512l356.6 0c16.4 0 29.7-13.3 29.7-29.7 0-98.5-79.8-178.3-178.3-178.3l-59.4 0z"/></svg>
+    </div>
+
+  </div>
+
+  <div class="header-search-bar">
+    <input 
+    class="search-input" 
+    type="text"  
+    placeholder="search a book"
+    (keypress)="redirectToSearchIfEnterPressed($event)"
+    #input
+    >
+  </div>
+
+  <div class="login-logout">
+    <!-- <div (click)="login()">Login</div> -->
+      <div (click)="navigateToShop()">Shop</div>
+    <div (click)="logout()">Logout</div>
+</div>
+
+</div>
+
+
+<div *ngIf="isOpen" class="navbar-opened">
+   <div (click)="goToCart()" class="navbar-item">
+    Enter Your Cart
+    </div>
+
+    <div (click)="goToProfile()" class="navbar-item">
+          Enter Your Profile
+    </div>
+  
+        <div (click)="login()" class="navbar-item" *ngIf="!isLoggedIn">
+          Login
+        </div>
+
+        <div (click)="register()" class="navbar-item" *ngIf="!isLoggedIn">
+          Register
+        </div>
+
+        <div (click)="logout()" *ngIf="isLoggedIn"  class="navbar-item">Logout</div>
+  
+</div>
+
+<div class="profile-container">
+  <div class="greetings">Hey {{loggedUserName}}!</div>
+  <div class="sub-greetings">Would you Like to change your details?</div>
+  <div *ngIf="loggedUserDetails[0]?.homeAddress">
+    <div class="mark">Your Home address is: {{loggedUserDetails[0]?.homeAddress}}</div>
+    <div>Would you like to change it?</div>
+  </div>
+  <div *ngIf="!loggedUserDetails[0]?.homeAddress">Add your home address!</div>
+  
+  <input #homeAddressInput  type="text">
+  <button (click)="addChange(homeAddressInput, 'home')">
+    <div *ngIf="loggedUserDetails[0]?.homeAddress">Change</div>
+    <div *ngIf="!loggedUserDetails[0]?.homeAddress">Add</div>
+  </button>
+
+    <div *ngIf="loggedUserDetails[1]?.age">
+    <div >Your age is: {{loggedUserDetails[1]?.age}}</div>
+    <div>Would you like to change it?</div>
+  </div>
+  <div *ngIf="!loggedUserDetails[1]?.age">Add your age</div>
+  <input #ageInput type="text">
+  <button  (click)="addChange(ageInput, 'age')">
+    <div *ngIf="loggedUserDetails[1]?.age">Change</div>
+    <div *ngIf="!loggedUserDetails[1]?.age">Add</div>
+  </button>
+
+  <div *ngIf="loggedUserDetails[2]?.favoriteGenre">
+    <div class="mark">Your favorite book genre is: {{loggedUserDetails[2]?.favoriteGenre}}</div>
+    <div>Would you like to change it?</div>
+  </div>
+  <div *ngIf="!loggedUserDetails[2]?.favoriteGenre">Would you like to add your favorite genre?</div>
+    <input #favoriteGenreInput type="text">
+  <button (click)="addChange(favoriteGenreInput, 'genre')">
+        <div *ngIf="loggedUserDetails[2]?.favoriteGenre">Change</div>
+    <div *ngIf="!loggedUserDetails[2]?.favoriteGenre">Add</div>
+  </button>
+
+  <div *ngIf="loggedUserName !== 'admin'">Delete Your Account?</div>
+  <button class="delete-warning" *ngIf="loggedUserName !== 'admin'" (click)="deleteUser()">Delete!</button>
+
+  <div *ngIf="loggedUserName !== 'admin' ">
+  <div *ngIf="loggedUserName !== 'admin'">Get A Discount!</div>
+  <input #discount type="text" placeholder="insert discount code">
+  <button  *ngIf="loggedUserName !== 'admin'" (click)="applyDiscount(discount)">Apply Code</button>
+</div>
+
+  <div *ngIf="loggedUserName === 'admin'">
+    <div>Give Logged Users A discount</div>
+    <input #discountSize type="text" placeholder="insert discount number">
+  <button  (click)="applyDiscountLoggedUsers(discountSize)">Apply Code</button>
+  </div>
+  <div *ngIf="loggedUserName === 'admin'">
+    האדמין מחובר כרגע
+  </div>
+</div> 

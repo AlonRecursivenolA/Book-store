@@ -1,0 +1,209 @@
+@use '../../styles/forms.scss';
+
+.shop-root{
+  @include forms.flex-display;
+  flex-direction: column;
+}
+
+.header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 80px;
+  background-color: black
+}
+.header-logged-out{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 80px;
+  background-color: black
+}
+.header-details, .login-logout, .header-search-bar{
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+.header-details > * , .login-logout > * {
+  padding: 6px;
+  color: white;
+  font-style: oblique;
+  font-size: 22px;
+  cursor: pointer;
+}
+.header-details{
+  margin-left: 16px;
+}
+.login-logout{
+  margin-right: 16px;
+}
+
+.header-search-bar input{
+  text-align: center;
+  font-style: oblique;
+  color: brown;
+  padding: 4px;
+  width: 100%;
+  max-width: 450px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  border-radius: 5%;
+}
+.header-search-bar input:focus{
+  outline: none;
+}
+
+.search-btn{
+  position: absolute;
+  top: 24px;
+  right: 710px;
+  background-color: transparent;
+  color: brown;
+  padding: 6px;
+  border: none;
+  z-index: 2;
+  cursor: pointer;
+}
+.search-input::placeholder {
+  color: brown;
+}
+.shop-container{
+  @include forms.flex-display;
+  flex-wrap: wrap;
+  background-color: rgb(230, 224, 216);
+}
+.book-details{
+  position: relative;
+  @include forms.flex-display;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.book-details > img{
+  width: 210px;
+  height: 255px;
+  margin: 65px 40px 20px 40px;
+}
+.book-details > div {
+  @include forms.flex-display;
+  flex-direction: column;
+  padding: 6px;
+}
+
+
+.book-name{
+  font-size: 28px;
+  font-weight: 600;
+  font-style: italic;
+  color: darkcyan;
+}
+.book-category{
+  font-size: 14px;
+}
+.book-price{
+  font-weight: 800;
+  line-height: 0.6;
+}
+
+.header-details  svg {
+  z-index: 10;
+  width: 20px;
+  height: 20px;
+  margin-left: 15px;
+}
+.book-cart{
+
+  width: 35px;
+  height: 35px;
+  z-index: 10;
+  background-color: transparent;
+  border-radius: 50%;
+  padding: 2px;
+  cursor: pointer;
+}
+.user-details > *{
+  @include forms.flex-display;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+// .add-to-cart{
+//   position: absolute;
+//   display: none;
+//   top: 250px;
+//   right: 50px;
+// }
+// .book-details > img:hover .add-to-cart{
+//   display: block;
+// }
+
+.banner-container{
+  @include forms.flex-display;
+  flex-direction: column;
+  padding-top: 50px;
+  background-color: rgb(230, 224, 216);
+  width: 100%;
+  direction: rtl;
+  text-align: center;
+}
+.banner{
+  font-size: 80px;
+  font-weight: 800;
+  font-style: italic;
+}
+.banner-sub-explained{
+  font-size: 28px;
+  font-weight: 600;
+  font-style: italic;
+  line-height: 0.7;
+}
+
+.search-icon{
+  @include forms.flex-display;
+  z-index: 10;
+  width: 25px;
+  height: 25px;
+}
+.lines{
+  width: 25px;
+  height: 2px;
+  border-radius: 5px;
+  margin: 5px;
+  background-color: white;
+}
+
+.navbar-opened{
+  width: 100%;
+  height: 500px;
+  background-color: whitesmoke;
+}
+
+.navbar-item{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  width: 300px;
+  height: 50px;
+  margin: 10px;
+  font-size: 28px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.simulate{
+  transition: transform 0.5s ease, opacity 0.5s ease,;
+}
+
+.simulate.simulated-top{
+  transform: rotate(45deg) translateY(10px);
+  
+}
+.simulate.simulated-bottom{
+  transform: rotate(-45deg) translateY(-10px);
+}
+.simulate.simulated-middle{
+  opacity: 0;
+}
