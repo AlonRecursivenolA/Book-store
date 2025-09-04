@@ -1,2 +1,12 @@
+<app-header *ngIf="!hideHeader"
+(cartClick)="navigateToCart()"
+(goShop)="navigateToShop()"
+(logout)="logout()"
+(profileClick)="navigateToProfile()"
+(search)="redirectToSearchIfEnterPressed($event)"
+
+
+></app-header>
+
 <router-outlet>
 </router-outlet>

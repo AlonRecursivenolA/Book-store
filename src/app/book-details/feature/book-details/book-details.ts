@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BookService } from '../../core/services/book-service';
 import { CommonModule } from '@angular/common';
-import { LocalStorage } from '../../core/services/local-storage-service';
+import { BookService } from '../../../core/services/book-service';
+import { LocalStorage } from '../../../core/services/local-storage-service';
 
 @Component({
   selector: 'app-book-details',

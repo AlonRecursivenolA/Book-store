@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BookService } from '../../core/services/book-service';
 import { CommonModule } from '@angular/common';
 import { LocalStorage } from '../../core/services/local-storage-service';
+import { Header } from '../../shared/header/header';
 
 @Component({
   selector: 'app-search-page',

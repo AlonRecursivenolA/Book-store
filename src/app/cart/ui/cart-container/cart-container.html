@@ -1,0 +1,21 @@
+<div class="shop-container">
+  <div class="book-details" *ngFor="let book of cartBooks; let i = index;">
+
+          <img [src]="book.location" (click)="displayBookDetails(book.name)">
+          <div class="book-name" (click)="displayBookDetails(book.name)">
+            {{book.name}}
+          </div>
+          <div class="book-category" (click)="displayBookDetails(book.name)">                      
+            {{book.category}}
+          </div>
+          <div *ngIf="book.newPrice === 0" class="book-price" (click)="displayBookDetails(book.name)">
+            ₪{{book.price}}
+          </div>
+          <div *ngIf="book.newPrice !== 0" class="book-price text-decoration-oldprice" (click)="displayBookDetails(book.name)">
+            ₪{{book.price}}
+          </div>
+          <div *ngIf="book.newPrice !== 0">
+            {{book.newPrice}}
+          </div>
+  </div>
+</div>

@@ -1,12 +1,15 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { LocalStorage } from '../../core/services/local-storage-service';
-import { BookService } from '../../core/services/book-service';
+
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { LocalStorage } from '../../../core/services/local-storage-service';
+import { BookService } from '../../../core/services/book-service';
+import { Banner } from '../../ui/banner/banner';
+import { BookContainer } from '../../ui/book-container/book-container';
 
 @Component({
   selector: 'app-book-shop',
-  imports: [CommonModule],
+  imports: [CommonModule, Banner, BookContainer],
   templateUrl: './book-shop.html',
   styleUrl: './book-shop.scss'
 })
@@ -39,10 +42,7 @@ export class BookShop implements OnInit
   register(){
     this.router.navigate(['/register'])
   }
-  displayBookDetails(index:number){
 
-    this.router.navigate(['/book-details', index])
-  }
   redirectToSearchIfEnterPressed(event:any): void {
     
     if(event.key === 'Enter'){
@@ -50,22 +50,6 @@ export class BookShop implements OnInit
     }
     this.catchEvent += event.key;
 
-  }
-  addToCart(book:any){
-    let user =this.localStoragee.getUser();
-    if(!this.isLoggedIn){
-      alert('Please login before adding a book to your cart!');
-      return;
-    }
-    for(let i = 0; i < user.booksInCart.length; i++){
-      if(book.name.includes(user.booksInCart[i].name)){
-        alert('Book Already In Cart!');
-        return;
-      }
-    }
-    alert('Book Added To Cart!');
-    user.booksInCart.push(book);
-    this.localStoragee.saveUser(user);
   }
   navigateToCart(){
     if(!this.isLoggedIn){
