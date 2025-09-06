@@ -6,6 +6,7 @@ import { LocalStorage } from '../../../core/services/local-storage-service';
 import { BookService } from '../../../core/services/book-service';
 import { Banner } from '../../ui/banner/banner';
 import { BookContainer } from '../../ui/book-container/book-container';
+import { UserService } from '../../../core/services/user-service';
 
 @Component({
   selector: 'app-book-shop',
@@ -20,10 +21,10 @@ export class BookShop implements OnInit
   isLoggedIn: any;
   isOpen:boolean = false;
   simulated:boolean = false;
-  constructor(private localStoragee: LocalStorage, private bookService:BookService, private router: Router) {
+  constructor(private user :UserService , private bookService:BookService, private router: Router) {
   }
   ngOnInit(): void {
-    this.isLoggedIn = !!this.localStoragee.getWhosLoggedIn();
+    this.isLoggedIn = !!this.user.getWhosLoggedIn();
     this.bookService.books.subscribe((books) => {
       this.booksList = books;
     });
@@ -33,7 +34,7 @@ export class BookShop implements OnInit
   }
 
   logout(){
-    this.localStoragee.logout();
+    this.user.logout();
     this.router.navigate(['/login'])
   }
   login(){

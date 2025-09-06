@@ -22,15 +22,16 @@
     type="text"  
     placeholder="search a book"
     #q
-    (keypress)="onEnter($event)"
+    (keypress)="onEnter($event, q)"
     #input
     >
   </div>
 
 <div class="login-logout">
-    <!-- <div (click)="login()">Login</div> -->
+    <div *ngIf="!isLoggedIn" (click)="login.emit()">Login</div>
+    <div *ngIf="!isLoggedIn" (click)="register.emit()">Register</div>
     <div (click)="goShop.emit()">Shop</div>
-    <div (click)="logout.emit()">Logout</div>
+    <div *ngIf="isLoggedIn" (click)="logout.emit()">Logout</div>
 </div>
 
 </div>
@@ -44,13 +45,13 @@
           Enter Your Profile
     </div>
   
-        <!-- <div (click)="login()" class="navbar-item" *ngIf="!isLoggedIn">
+        <div (click)="login.emit()" class="navbar-item" *ngIf="!isLoggedIn">
           Login
-        </div> -->
+        </div> 
 
-        <!-- <div (click)="register()" class="navbar-item" *ngIf="!isLoggedIn">
+         <div (click)="register.emit()" class="navbar-item" *ngIf="!isLoggedIn">
           Register
-        </div> -->
+        </div> 
 
         <div (click)="logout.emit()" *ngIf="isLoggedIn"  class="navbar-item">Logout</div>
   

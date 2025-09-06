@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { BookService } from '../../../core/services/book-service';
-import { LocalStorage } from '../../../core/services/local-storage-service';
+import { BookService } from '../../core/services/book-service';
+import { LocalStorage } from '../../core/services/local-storage-service';
+import { UserService } from '../../core/services/user-service';
+
 
 @Component({
   selector: 'app-book-details',
@@ -15,7 +17,7 @@ export class BookDetails implements OnInit{
   bookName!:any;
   displayedBook!:any;
   catchEvent:any = "";
-  constructor(private route:ActivatedRoute, private bookService:BookService, private router:Router, private localStorage:LocalStorage){
+    constructor(private route:ActivatedRoute, private bookService:BookService, private router:Router, private user:UserService){
 
   }
   ngOnInit(): void {
@@ -36,7 +38,7 @@ export class BookDetails implements OnInit{
   }
 
   logout(){
-    this.localStorage.logout();
+    this.user.logout();
     this.router.navigate(['/login']);
   }
   redirectToShop(){

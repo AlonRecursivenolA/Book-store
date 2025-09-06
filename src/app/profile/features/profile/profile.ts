@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LocalStorage } from '../../../core/services/local-storage-service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { UserService } from '../../../core/services/user-service';
 
 @Component({
   selector: 'app-profile',
@@ -17,15 +18,15 @@ export class Profile implements OnInit{
   simulated:boolean = false;
   isLoggedIn:boolean = false;
 
-  constructor(private localStorage:LocalStorage, private router: Router){
+  constructor(private user:UserService, private router: Router){
 
   }
   ngOnInit(): void {
-      this.loggedUserName = this.localStorage.getUser().name;
-      this.loggedUserDetails = this.localStorage.getUser().userDetails;
+      this.loggedUserName = this.user.getUser().name;
+      this.loggedUserDetails = this.user.getUser().userDetails;
   }
   addChange(data:any, type:string){
-    const user = this.localStorage.getUser();
+    const user = this.user.getUser();
     if(type==='home'){
       user.userDetails[0].homeAddress = data.value;
     }
@@ -35,32 +36,31 @@ export class Profile implements OnInit{
     else if(type==='genre'){
       user.userDetails[2].favoriteGenre = data.value;
     }
-    this.localStorage.saveUser(user);
+    this.user.saveUser(user);
     this.router.navigate(['/profile'])
   }
   deleteUser(){
-    this.localStorage.clearLocalStorage();
     this.router.navigate(['/'])
   }
   applyDiscount(number:any){
     const num = number.value;
-    const user = this.localStorage.getUser();
+    const user = this.user.getUser();
     console.log(user);
     for(let i = 0; i < user.booksInCart.length; i++){
       user.booksInCart[i].newPrice = Math.floor(user.booksInCart[i].price * (1- num / 100));
       console.log(user.booksInCart[i].newPrice);
 
     }
-    this.localStorage.saveUser(user);
+    this.user.saveUser(user);
   }
   applyDiscountLoggedUsers(number:any)
   {
-    const user = this.localStorage.getUser();
+    const user = this.user.getUser();
     for(let i = 0; i < user.booksInCart.length; i++){
       user.booksInCart[i].newPrice = user.booksInCart[i].price - number;
       console.log(user.booksInCart[i].newPrice);
     }
-    this.localStorage.saveUser(user);
+    this.user.saveUser(user);
     
   }
 
@@ -78,7 +78,7 @@ export class Profile implements OnInit{
   }
 
   logout(){
-    this.localStorage.logout();
+    this.user.logout();
     this.router.navigate(['/login'])
   }
   goToCart(){

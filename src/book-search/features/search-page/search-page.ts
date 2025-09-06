@@ -1,9 +1,10 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BookService } from '../../core/services/book-service';
+import { BookService } from '../../../app/core/services/book-service';
 import { CommonModule } from '@angular/common';
-import { LocalStorage } from '../../core/services/local-storage-service';
-import { Header } from '../../shared/header/header';
+import { LocalStorage } from '../../../app/core/services/local-storage-service';
+import { Header } from '../../../app/shared/header/header';
+import { UserService } from '../../../app/core/services/user-service';
 
 @Component({
   selector: 'app-search-page',
@@ -20,11 +21,11 @@ export class SearchPage implements OnInit{
   isOpen:boolean = false;
   simulated:boolean = false;
   
-  constructor(private activatedRoute:ActivatedRoute, private bookService:BookService, private router : Router, private localStorage:LocalStorage){
+  constructor(private activatedRoute:ActivatedRoute, private bookService:BookService, private router : Router, private user:UserService){
 
   }
       ngOnInit(): void {
-        this.isLoggedIn = !!this.localStorage.getWhosLoggedIn();
+        this.isLoggedIn = !!this.user.getWhosLoggedIn();
         this.activatedRoute.paramMap.subscribe(pm => {
           this.bookName = pm.get('bookname') ?? '';
           const all = this.bookService.getAllBooks();
@@ -45,9 +46,8 @@ export class SearchPage implements OnInit{
         event.preventDefault();
         const term = (this.catchEvent ?? '').trim();
         if (!term) return;
-
+        this.catchEvent = '';    
         this.router.navigate(['/search-page', term], { replaceUrl: true });
-        this.catchEvent = '';     
         return; 
       }
 
@@ -70,7 +70,7 @@ export class SearchPage implements OnInit{
     this.router.navigate(['/cart'])
   }
   logout(){
-    this.localStorage.logout();
+    this.user.logout();
     this.router.navigate(['/login'])
   }
   login(){

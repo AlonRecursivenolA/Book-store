@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, NgForm, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { LocalStorage } from '../../../core/services/local-storage-service';
+import { UserService } from '../../../core/services/user-service';
 
 @Component({
   selector: 'app-register',
@@ -11,11 +12,11 @@ import { LocalStorage } from '../../../core/services/local-storage-service';
 })
 export class Register implements OnInit{
 
-      constructor(private router : Router, private localStorage : LocalStorage){
+      constructor(private router : Router, private user :UserService){
 
       }
       ngOnInit(): void {
-          this.localStorage.logout();
+          this.user.logout();
       }
       
       form = new FormGroup({
@@ -48,14 +49,14 @@ export class Register implements OnInit{
         }
 
         
-        this.localStorage.whosLoggedIn(savedUser.name ?? '');
-        this.localStorage.saveUser(savedUser);
-        this.localStorage.saveRegisteredUsers(savedUser);
+        this.user.setWhosLoggedIn(savedUser.name ?? '');
+        this.user.saveUser(savedUser);
+        this.user.saveRegisteredUsers(savedUser);
         this.router.navigate(['/shop'])
       }
 
       isAlreadyTakenUserName():boolean{
-        const users:any = this.localStorage.getRegisteredUsers();
+        const users:any = this.user.getRegisteredUsers();
         for(let i = 0; i < users.length; i++){
           if(users[i].name === this.form.get('name')?.value){
             return true;

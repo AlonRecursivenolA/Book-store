@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { LocalStorage } from '../../../core/services/local-storage-service';
 import { BookService } from '../../../core/services/book-service';
 import { CommonModule } from '@angular/common';
+import { UserService } from '../../../core/services/user-service';
 
 @Component({
   selector: 'app-book-container',
@@ -11,7 +12,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './book-container.scss'
 })
 export class BookContainer implements OnInit{
-  constructor(private router:Router, private localStoragee:LocalStorage, private bookService: BookService){
+  constructor(private router:Router, private user: UserService , private bookService: BookService){
 
   }
 
@@ -21,7 +22,7 @@ export class BookContainer implements OnInit{
   isOpen:boolean = false;
   simulated:boolean = false;
   ngOnInit(): void {
-    this.isLoggedIn = !!this.localStoragee.getWhosLoggedIn();
+    this.isLoggedIn = !!this.user.getWhosLoggedIn();
     this.bookService.books.subscribe((books) => {
       this.booksList = books;
     });
@@ -31,7 +32,7 @@ export class BookContainer implements OnInit{
   }
 
     addToCart(book:any){
-    let user =this.localStoragee.getUser();
+    let user =this.user.getUser();
     if(!this.isLoggedIn){
       alert('Please login before adding a book to your cart!');
       return;
@@ -44,6 +45,6 @@ export class BookContainer implements OnInit{
     }
     alert('Book Added To Cart!');
     user.booksInCart.push(book);
-    this.localStoragee.saveUser(user);
+    this.user.saveUser(user);
   }
 }

@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { Header } from '../../../shared/header/header';
 import { Banner } from '../../ui/banner/banner';
 import { ShopContainer } from '../../ui/cart-container/cart-container';
+import { UserService } from '../../../core/services/user-service';
 
 @Component({
   selector: 'app-cart',
@@ -16,11 +17,11 @@ import { ShopContainer } from '../../ui/cart-container/cart-container';
 export class Cart implements OnInit{
   cartBooks!:any;
   catchEvent:any = '';
-  constructor(private router:Router,private bookService:BookService, private localStorage:LocalStorage){
+  constructor(private router:Router,private bookService:BookService, private user:UserService){
 
   }
   ngOnInit(): void {
-      const user=this.localStorage.getUser();
+      const user=this.user.getUser();
       this.cartBooks = user.booksInCart;
   }
 
@@ -34,7 +35,7 @@ export class Cart implements OnInit{
   }
 
   addToCart(book:any){
-    let user =this.localStorage.getUser();
+    let user =this.user.getUser();
     for(let i = 0; i < user.booksInCart.length; i++){
       if(book.name.includes(user.booksInCart[i].name)){
         alert('Book Already In Cart!');
@@ -42,6 +43,6 @@ export class Cart implements OnInit{
       }
     }
     user.booksInCart.push(book);
-    this.localStorage.saveUser(user);
+    this.user.saveUser(user);
   }
 }

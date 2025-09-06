@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { LocalStorage } from '../../../core/services/local-storage-service';
+import { UserService } from '../../../core/services/user-service';
 
 @Component({
   selector: 'app-login',
@@ -12,12 +13,12 @@ import { LocalStorage } from '../../../core/services/local-storage-service';
 })
 export class Login implements OnInit{
 
-    constructor(private router:Router, private localStorage:LocalStorage){
+    constructor(private router:Router, private user:UserService, private localStorage:LocalStorage){
 
     }
 
     ngOnInit(): void {
-        this.localStorage.logout();
+        this.user.logout();
     }
     form = new FormGroup({
       name: new FormControl('',[Validators.required]),
@@ -36,7 +37,7 @@ export class Login implements OnInit{
     }
 
     isCorrectLoginDetails(){
-      const users:any = this.localStorage.getRegisteredUsers();
+      const users:any = this.user.getRegisteredUsers();
       for(let i = 0; i < users.length; i++){
         if(users[i].name === this.form.get('name')?.value && users[i].password === this.form.get('password')?.value){
           return true;
@@ -55,11 +56,11 @@ export class Login implements OnInit{
       }
       if(name === 'admin') 
         {
-          this.localStorage.whosLoggedIn(name);
+          this.user.setWhosLoggedIn(name);
           this.router.navigate(['/admin']);
         }
         else{
-          this.localStorage.whosLoggedIn(name);
+          this.user.setWhosLoggedIn(name);
           this.router.navigate(['/shop'])
         }
     }
